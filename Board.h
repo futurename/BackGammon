@@ -25,7 +25,6 @@ public:
 
 private:
     const int SPACES = 25;
-    const int MAX_STONES = 15;
     vector<int> player1Board;
     vector<int> player2Board;
     Dice currentDice;
