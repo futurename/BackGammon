@@ -1,11 +1,9 @@
+#pragma once
 #include <iostream>
 #include <vector>
-#include <map>
+#include <set>
 
-#include "Dice.h"
 #include "Player.h"
-
-#pragma once
 
 using namespace std;
 
@@ -15,13 +13,15 @@ public:
 
     int decideFirstPlayer();
 
-    map<int, string> getTokensForMoving(int playerIndex, Dice dice);
+    set<pair<int, string>> getTokensForMoving(int playerIndex, Dice dice);
 
-    map<int, string> getTargetTokens(int tokenIndex, int spaces);
+    set<pair<int, string>> getTargetTokens(int tokenIndex, int spaces);
 
     void moveToken(int playerIndex, int fromIndex, int toIndex);
 
     void printBoard();
+
+    void ClickDice(Board &board, int playerIndex);
 
 private:
     const int SPACES = 25;

@@ -13,8 +13,8 @@ char Player::getSymbol() {
     return symbol;
 }
 
-Dice Player::ClickDice() {
-    return Dice();
+int Player::getPlayerIndex() {
+    return playerIndex;
 }
 
 int Player::SelectToken(map<int, string> tokens) {
@@ -53,4 +53,10 @@ void Player::setSymbol(char symbol) {
 void Player::setName(string name) {
     this->name = name;
 }
+
+void Player::setPlayerIndex(int index){
+    playerIndex = index;
+}
+
+
 

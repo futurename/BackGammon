@@ -1,8 +1,8 @@
+#pragma once
+
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
-#pragma once
 
 using namespace std;
 

@@ -145,8 +145,8 @@ void Board::moveToken(int playerIndex, int fromIndex, int toIndex) {
     cout << curPlayer->getName() << " moves from <" << fromIndex << "> to <" << toIndex << ">." << endl;
 }
 
-map<int, string> Board::getTokensForMoving(int playerIndex, Dice dice) {
-    map<int, string> result;
+set<pair<int, string>> Board::getTokensForMoving(int playerIndex, Dice dice) {
+    set<pair<int, string>> result;
     vector<int> &curPlayerTokens = playerIndex == 0 ? player1Board : player2Board;
     vector<int> &oppPlayerTokens = playerIndex == 0 ? player2Board : player1Board;
     int roll1 = dice.getRoll1();
@@ -184,4 +184,6 @@ map<int, string> Board::getTokensForMoving(int playerIndex, Dice dice) {
 
     return result;
 }
+
+
 
