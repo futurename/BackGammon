@@ -30,13 +30,20 @@ void Board::printBoard() {
     const int BOARD_WIDTH = 38;
     const int BOARD_MIDDLE = 15;
 
-    cout << setfill('-') << setw(BOARD_WIDTH) << "" << endl;
-    cout.fill(' ');
     stringstream ss;
 
-    for(int i = 12; i >0; i--) {
-        ss << i << "(" << SPACES - i <<") ";
-        cout << setw(8) << right<< ss.str();
+    ss << player1->getName() << ":Left "<< player1->getSymbol() << " VS. " << player2->getName() << ":(Right) " << player2->getSymbol();
+
+    cout << endl << setw((int) (BOARD_WIDTH - ss.str().size()) / 2) << "" << ss.str() << endl;
+    ss.str("");
+
+    cout << setfill('-') << setw(BOARD_WIDTH) << "" << endl;
+    cout.fill(' ');
+
+
+    for (int i = 12; i > 0; i--) {
+        ss << i << "(" << SPACES - i << ") ";
+        cout << setw(8) << right << ss.str();
         ss.str("");
 
         if (player1Board.at(i) > 0) {
@@ -48,24 +55,24 @@ void Board::printBoard() {
         }
         if (player2Board.at(SPACES - i) > 0) {
             for (int j = 0; j < player2Board.at(SPACES - i); j++) {
-                ss <<  player2->getSymbol();
+                ss << player2->getSymbol();
             }
-            cout <<  left << setw(BOARD_MIDDLE) <<ss.str();
+            cout << left << setw(BOARD_MIDDLE) << ss.str();
             ss.str("");
         }
 
         if (player1Board.at(SPACES - i) > 0) {
             for (int j = 0; j < player1Board.at(SPACES - i); j++) {
-                ss <<  player1->getSymbol();
+                ss << player1->getSymbol();
             }
-            cout <<  right << setw(BOARD_MIDDLE) << ss.str();
+            cout << right << setw(BOARD_MIDDLE) << ss.str();
             ss.str("");
         }
         if (player2Board.at(i) > 0) {
             for (int j = 0; j < player2Board.at(i); j++) {
-                ss <<  player2->getSymbol();
+                ss << player2->getSymbol();
             }
-            cout <<  right << setw(BOARD_MIDDLE) << ss.str();
+            cout << right << setw(BOARD_MIDDLE) << ss.str();
             ss.str("");
         }
 
@@ -76,10 +83,10 @@ void Board::printBoard() {
 }
 
 void Board::moveToken(int playerIndex, int fromIndex, int toIndex) {
-    Player* curPlayer = playerIndex == 0 ? player1 : player2;
-    vector<int>& curPlayerVector = playerIndex  == 0? player1Board : player2Board;
+    Player *curPlayer = playerIndex == 0 ? player1 : player2;
+    vector<int> &curPlayerVector = playerIndex == 0 ? player1Board : player2Board;
     curPlayerVector.at(fromIndex)--;
-    curPlayerVector.at(toIndex) ++;
+    curPlayerVector.at(toIndex)++;
 
     cout << curPlayer->getName() << " moves from <" << fromIndex << "> to <" << toIndex << ">." << endl;
 }
