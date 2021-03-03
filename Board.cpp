@@ -7,8 +7,11 @@
 #include "Board.h"
 
 
-Board::Board() {
+Board::Board(char symbol1, char symbol2) {
     const int MAX_SPACE = 25;
+
+    player1Symbol = symbol1;
+    player2Symbol = symbol2;
 
     player1Board.resize(MAX_SPACE);
     player2Board.resize(MAX_SPACE);
@@ -24,7 +27,7 @@ Board::Board() {
     player2Board.at(19) = 5;
 }
 
-void Board::printBoard(char player1Symbol, char player2Symbol) {
+void Board::printBoard() {
     const int BOARD_WIDTH = 38;
     const int BOARD_MIDDLE = 15;
 
@@ -34,7 +37,7 @@ void Board::printBoard(char player1Symbol, char player2Symbol) {
 
     for(int i = 12; i >0; i--) {
         ss << i << "(" << SPACES - i <<") ";
-        cout << setw(8) << ss.str();
+        cout << setw(8) << right<< ss.str();
         ss.str("");
 
         if (player1Board.at(i) > 0) {
@@ -71,4 +74,10 @@ void Board::printBoard(char player1Symbol, char player2Symbol) {
     }
     cout << setfill('-') << setw(BOARD_WIDTH) << "" << endl << endl;
     cout.fill(' ');
+}
+
+void Board::moveToken(int playerIndex, int fromIndex, int toIndex) {
+    vector<int>& curPlayer = playerIndex  == 0? player1Board : player2Board;
+    curPlayer.at(fromIndex)--;
+    curPlayer.at(toIndex) ++;
 }

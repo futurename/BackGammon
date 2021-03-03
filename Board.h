@@ -10,7 +10,7 @@ using namespace std;
 
 class Board {
 public:
-    Board();
+    Board(char symbol1, char symbol2);
 
     int decideFirstPlayer();
 
@@ -18,9 +18,9 @@ public:
 
     map<int, string> getTargetTokens(int tokenIndex, int spaces);
 
-    void moveToken(int tokenIndex);
+    void moveToken(int playerIndex, int fromIndex, int toIndex);
 
-    void printBoard(char player1Symbol, char player2Symbol);
+    void printBoard();
 
 
 private:
@@ -29,5 +29,7 @@ private:
     vector<int> player1Board;
     vector<int> player2Board;
     Dice currentDice;
+    char player1Symbol;
+    char player2Symbol;
 };
 
