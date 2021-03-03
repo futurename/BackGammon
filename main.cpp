@@ -91,8 +91,12 @@ int main() {
     Board board(playerOne, playerTwo);
     board.printBoard();
 
-    board.moveToken(0, 17, 21);
+    board.moveToken(0, 17, 22);
     board.printBoard();
+
+    Dice dice;
+    cout << "dice result: " << dice.getRoll1() << ", " << dice.getRoll2() << ", " << dice.getRollsSum() << endl;
+    board.getTokensForMoving(0, dice);
 
     return 0;
 }

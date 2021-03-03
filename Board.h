@@ -15,7 +15,7 @@ public:
 
     int decideFirstPlayer();
 
-    map<int, string> getOptionalTokens(Dice dice);
+    map<int, string> getTokensForMoving(int playerIndex, Dice dice);
 
     map<int, string> getTargetTokens(int tokenIndex, int spaces);
 

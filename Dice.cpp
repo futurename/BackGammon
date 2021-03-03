@@ -22,3 +22,7 @@ int Dice::getRoll1() {
 int Dice::getRoll2() {
     return roll2;
 }
+
+int Dice::getRollsSum() {
+    return roll1 + roll2;
+}
