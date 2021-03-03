@@ -1,25 +1,35 @@
 #include <iostream>
 #include "Dice.h"
 #include <vector>
+#include <map>
+
+#pragma once
 
 using namespace std;
 
 class Player {
 public:
+    Player(string name, char symbol);
+
     string getName();
 
-    string getSymbol();
+    void setName(string name);
 
-    Player(string playerName, string playerSymbol);
+    char getSymbol();
+
+    void setSymbol(char symbol);
 
     Dice ClickDice();
-    // int SelectToken(map<int, string> tokens);
-    // int MoveToken(map<int, string> tokens);
-    // void printList(map<int, string> allOptions, string title);
+
+    int SelectToken(map<int, string> tokens);
+
+    int MoveToken(map<int, string> tokens);
+
+    void printMap(map<int, string> allOptions, string title);
 
 private:
     string name;
-    string symbol;
+    char symbol;
     const string TITLE_SELECT = "Select a token: ";
     const string TITLE_MOVE = "Select target space: ";
 };

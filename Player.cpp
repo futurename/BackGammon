@@ -5,33 +5,52 @@
 
 using namespace std;
 
-Player::Player(string playerName, string playerSymbol)
-        :name(playerName), symbol(playerSymbol){}
-
-string Player::getName(){
+string Player::getName() {
     return name;
 }
 
-string Player::getSymbol(){
+char Player::getSymbol() {
     return symbol;
 }
 
-Dice Player::ClickDice(){
+Dice Player::ClickDice() {
     return Dice();
 }
 
-// int Player::SelectToken(map<int, string> tokens){
+int Player::SelectToken(map<int, string> tokens) {
+    printMap(tokens, TITLE_SELECT);
+    int userInput;
+    cin >> userInput;
+    return userInput;
+}
 
-//   return 0;
-// }
+int Player::MoveToken(map<int, string> tokens) {
+    printMap(tokens, TITLE_MOVE);
+    int userInput;
+    cin >> userInput;
+    return userInput;
+}
 
-// int Player::MoveToken(map<int, string> tokens){
+void Player::printMap(map<int, string> allOptions, std::string title) {
+    cout << title << endl;
 
-// }
+    for (auto &allOption : allOptions) {
+        cout << "Index-> " << allOption.first << ", Target indexes: " << allOption.second << endl;
+    }
 
-// void Player::printList(map<int,string> allOptions, std::string title){
-//   cout << title << endl;
-//   for(iterator<int, string> it = allOptions.begin(); ++it){
+    cout << "Your choice: " << endl;
+}
 
-//   }
-// }
+Player::Player(string name, char symbol) {
+    this->name = name;
+    this->symbol = symbol;
+}
+
+void Player::setSymbol(char symbol) {
+    this->symbol = symbol;
+}
+
+void Player::setName(string name) {
+    this->name = name;
+}
+

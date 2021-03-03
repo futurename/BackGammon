@@ -2,10 +2,14 @@
 #include <cstdlib>
 #include <ctime>
 
+#pragma once
+
 using namespace std;
 
 class Dice {
 public:
+    Dice();
+
     void diceRoll();
 
     int getRoll1();

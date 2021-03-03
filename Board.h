@@ -1,18 +1,26 @@
 #include <iostream>
 #include <vector>
+#include <map>
 
 #include "Dice.h"
 
+#pragma once
+
 using namespace std;
 
-class Board{
+class Board {
 public:
-    int firstPlayer();
-  /*  map<int, string> getOptionalTokens(Dice dice);
-    map<int, string> getTargetTokens(int tokenIndex, int spaces);*/
+    Board();
+
+    int decideFirstPlayer();
+
+    map<int, string> getOptionalTokens(Dice dice);
+
+    map<int, string> getTargetTokens(int tokenIndex, int spaces);
+
     void moveToken(int tokenIndex);
 
-    void printBoard();
+    void printBoard(char player1Symbol, char player2Symbol);
 
 
 private:
@@ -22,3 +30,4 @@ private:
     vector<int> player2Board;
     Dice currentDice;
 };
+
