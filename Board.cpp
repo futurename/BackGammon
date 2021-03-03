@@ -25,7 +25,7 @@ Board::Board() {
 }
 
 void Board::printBoard(char player1Symbol, char player2Symbol) {
-    const int BOARD_WIDTH = 39;
+    const int BOARD_WIDTH = 38;
     const int BOARD_MIDDLE = 15;
 
     cout << setfill('-') << setw(BOARD_WIDTH) << "" << endl;
@@ -69,4 +69,6 @@ void Board::printBoard(char player1Symbol, char player2Symbol) {
 
         cout << endl;
     }
+    cout << setfill('-') << setw(BOARD_WIDTH) << "" << endl << endl;
+    cout.fill(' ');
 }
