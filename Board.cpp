@@ -6,12 +6,11 @@
 #include <sstream>
 #include "Board.h"
 
-
-Board::Board(char symbol1, char symbol2) {
+Board::Board(Player &player1, Player &player2) {
     const int MAX_SPACE = 25;
 
-    player1Symbol = symbol1;
-    player2Symbol = symbol2;
+    this->player1 = &player1;
+    this->player2 = &player2;
 
     player1Board.resize(MAX_SPACE);
     player2Board.resize(MAX_SPACE);
@@ -42,14 +41,14 @@ void Board::printBoard() {
 
         if (player1Board.at(i) > 0) {
             for (int j = 0; j < player1Board.at(i); j++) {
-                ss << player1Symbol;
+                ss << player1->getSymbol();
             }
             cout << left << setw(BOARD_MIDDLE) << ss.str();
             ss.str("");
         }
         if (player2Board.at(SPACES - i) > 0) {
             for (int j = 0; j < player2Board.at(SPACES - i); j++) {
-                ss <<  player2Symbol;
+                ss <<  player2->getSymbol();
             }
             cout <<  left << setw(BOARD_MIDDLE) <<ss.str();
             ss.str("");
@@ -57,14 +56,14 @@ void Board::printBoard() {
 
         if (player1Board.at(SPACES - i) > 0) {
             for (int j = 0; j < player1Board.at(SPACES - i); j++) {
-                ss <<  player1Symbol;
+                ss <<  player1->getSymbol();
             }
             cout <<  right << setw(BOARD_MIDDLE) << ss.str();
             ss.str("");
         }
         if (player2Board.at(i) > 0) {
             for (int j = 0; j < player2Board.at(i); j++) {
-                ss <<  player2Symbol;
+                ss <<  player2->getSymbol();
             }
             cout <<  right << setw(BOARD_MIDDLE) << ss.str();
             ss.str("");
@@ -77,7 +76,11 @@ void Board::printBoard() {
 }
 
 void Board::moveToken(int playerIndex, int fromIndex, int toIndex) {
-    vector<int>& curPlayer = playerIndex  == 0? player1Board : player2Board;
-    curPlayer.at(fromIndex)--;
-    curPlayer.at(toIndex) ++;
+    Player* curPlayer = playerIndex == 0 ? player1 : player2;
+    vector<int>& curPlayerVector = playerIndex  == 0? player1Board : player2Board;
+    curPlayerVector.at(fromIndex)--;
+    curPlayerVector.at(toIndex) ++;
+
+    cout << curPlayer->getName() << " moves from <" << fromIndex << "> to <" << toIndex << ">." << endl;
 }
+

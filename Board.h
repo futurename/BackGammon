@@ -3,6 +3,7 @@
 #include <map>
 
 #include "Dice.h"
+#include "Player.h"
 
 #pragma once
 
@@ -10,7 +11,7 @@ using namespace std;
 
 class Board {
 public:
-    Board(char symbol1, char symbol2);
+    Board(Player &player1, Player &player2);
 
     int decideFirstPlayer();
 
@@ -22,14 +23,13 @@ public:
 
     void printBoard();
 
-
 private:
     const int SPACES = 25;
     const int MAX_STONES = 15;
     vector<int> player1Board;
     vector<int> player2Board;
     Dice currentDice;
-    char player1Symbol;
-    char player2Symbol;
+    Player *player1;
+    Player *player2;
 };
 
