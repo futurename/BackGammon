@@ -34,8 +34,6 @@ vector<int> Player::SelectToken(set<pair<int, string>> tokens){
     moveSelection.push_back(toIndex);
 
     return moveSelection;
-
-    // Board::moveToken(getPlayerIndex(), fromIndex, toIndex);
 }
 
 int Player::MoveToken(set<pair<int, string>> tokens) {
