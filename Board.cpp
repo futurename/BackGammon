@@ -1,5 +1,6 @@
 /*
- Created by Wei Wang on 3/2/2021 002.
+ Title: Backgammon Assignment
+ Authors: Wei Wang & Kishan Patel
 */
 
 #include <iomanip>
@@ -22,7 +23,6 @@ Board::Board(Player &player1, Player &player2) {
 
     //for testing
     player2Board.at(3) = 1;
-    player1Board.at(0) = 2;
 
     player2Board.at(1) = 2;
     player2Board.at(12) = 5;
@@ -145,44 +145,91 @@ void Board::moveToken(int playerIndex, int fromIndex, int toIndex) {
     cout << curPlayer->getName() << " moves from <" << fromIndex << "> to <" << toIndex << ">." << endl;
 }
 
-set<pair<int, string>> Board::getTokensForMoving(int playerIndex, Dice dice) {
+set<pair<int, string>> Board::getTokensForMoving(int playerIndex, int roll1, int roll2) {
     set<pair<int, string>> result;
     vector<int> &curPlayerTokens = playerIndex == 0 ? player1Board : player2Board;
     vector<int> &oppPlayerTokens = playerIndex == 0 ? player2Board : player1Board;
-    int roll1 = dice.getRoll1();
-    int roll2 = dice.getRoll2();
-    int sum = roll1 + roll2;
+
     stringstream ss;
 
     //Iterate all token index and check whether it can move with steps of roll1, roll2 and sum.
     for (int i = 1; i < SPACES; i++) {
         ss.str("");
         if (curPlayerTokens.at(i) > 0) {
-            if (oppPlayerTokens.at(i + roll1) <= 1 && i + roll1 < SPACES) {
-                ss << i << " - > " << roll1 + 1 << ", ";
+            if (i + roll1 < SPACES && oppPlayerTokens.at(i + roll1) <= 1) {
+                ss << i << " -> " << i + roll1 << ", ";
             }
-            if (oppPlayerTokens.at(i + roll2) <= 1 && i + roll2 < SPACES) {
-                ss << i << " -> " << roll2 + i << ", ";
-            }
-            if (oppPlayerTokens.at(i + sum) <= 1 && i + sum < SPACES) {
-                ss << i << " -> " << sum + i;
+            if (i + roll2 < SPACES && oppPlayerTokens.at(i + roll2) <= 1) {
+                ss << i << " -> " << i + roll2 << ", ";
             }
             result.insert(pair<int, string>(i, ss.str()));
+        }
+    }
+    return result;
+}
 
-            //for testing
-            cout << ss.str() << endl;
+set<pair<int, string>> Board::getTokensForMoving(int playerIndex, int roll2) {
+    set<pair<int, string>> result;
+    vector<int> &curPlayerTokens = playerIndex == 0 ? player1Board : player2Board;
+    vector<int> &oppPlayerTokens = playerIndex == 0 ? player2Board : player1Board;
 
+    stringstream ss;
+
+    //Iterate all token index and check whether it can move with steps of roll1, roll2 and sum.
+    for (int i = 1; i < SPACES; i++) {
+        ss.str("");
+        if (curPlayerTokens.at(i) > 0) {
+            if (i + roll2 < SPACES && oppPlayerTokens.at(SPACES -(i + roll2)) <= 1) {
+                ss << i << " -> " << i + roll2 << ", ";
+            }
+            result.insert(pair<int, string>(i, ss.str()));
             ss.str("");
         }
     }
-
-    cout << "^^^^^^^^^ targets list ^^^^^^^^^^^" << endl;
-
-    for(pair<int, string> onePair : result){
-        cout << onePair.first  << ": " << onePair.second << endl;
-    }
-
     return result;
+}
+
+void Board::playing(int playerIndex) {
+    bool player1Turn = playerIndex == 0 ? true : false;
+    Player *curPlayer = player1Turn ? player1 : player2;
+    vector<int> &curTokens = player1Turn ? player1Board: player2Board;
+
+    while (true) {
+        Dice dice;
+        Player *curPlayer = player1Turn ? player1 : player2;
+        vector<int> &curTokens = player1Turn ? player1Board: player2Board;
+
+        set<pair<int, string>> moveSet;
+
+        cout << ">>> Player" << (player1Turn ? " 1 " :" 2 ") << ": " << curPlayer->getName() << " <<<" << endl;
+
+        //first roll processing
+        if (player1Turn) {
+            moveSet = getTokensForMoving(player1->getPlayerIndex(), dice.getRoll1(), dice.getRoll2());
+        } else {
+            moveSet = getTokensForMoving(player2->getPlayerIndex(), dice.getRoll1(), dice.getRoll2());
+        }
+
+        vector<int> selection = curPlayer->SelectToken(moveSet);
+        moveToken(curPlayer->getPlayerIndex(), selection.at(0), selection.at(1));
+
+        printBoard();
+
+        //second roll processing
+        int unSelRoll = dice.getRoll1() == selection.at(1) - selection.at(0) ? dice.getRoll2() : dice.getRoll1();
+        if (player1Turn) {
+            moveSet = getTokensForMoving(player1->getPlayerIndex(), unSelRoll);
+        } else {
+            moveSet = getTokensForMoving(player2->getPlayerIndex(), unSelRoll);
+        }
+
+        selection = curPlayer->SelectToken(moveSet);
+        moveToken(curPlayer->getPlayerIndex(), selection.at(0), selection.at(1));
+
+        printBoard();
+
+        player1Turn = !player1Turn;
+    }
 }
 
 

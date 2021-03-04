@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Dice.h"
 #include <vector>
-#include <map>
+#include <set>
 
 using namespace std;
 
@@ -19,11 +19,11 @@ public:
 
     void setSymbol(char symbol);
 
-    int SelectToken(map<int, string> tokens);
+    vector<int> SelectToken(set<pair<int, string>> tokens);
 
-    int MoveToken(map<int, string> tokens);
+    int MoveToken(set<pair<int, string>> tokens);
 
-    void printMap(map<int, string> allOptions, string title);
+    void printMap(set<pair<int, string>> allOptions, string title);
 
     void setPlayerIndex(int index);
 

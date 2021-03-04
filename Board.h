@@ -13,9 +13,11 @@ public:
 
     int decideFirstPlayer();
 
-    set<pair<int, string>> getTokensForMoving(int playerIndex, Dice dice);
+    set<pair<int, string>> getTokensForMoving(int playerIndex, int roll1, int roll2);
 
-    set<pair<int, string>> getTargetTokens(int tokenIndex, int spaces);
+    set<pair<int, string>> getTokensForMoving(int playerIndex, int roll2);
+
+    void playing(int playerIndex);
 
     void moveToken(int playerIndex, int fromIndex, int toIndex);
 
@@ -31,4 +33,3 @@ private:
     Player *player1;
     Player *player2;
 };
-

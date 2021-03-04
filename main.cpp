@@ -1,15 +1,21 @@
+/*
+ Title: Backgammon Assignment
+ Authors: Wei Wang & Kishan Patel
+*/
+
 #include <iostream>
 #include <sstream>
 
 #include "Board.h"
 
-
 using namespace std;
 
+// Symbol options for the player to select
 enum Symbol {
     ASTERISK = '*', DOLLAR = '$', PERCENT = '%', PLUS = '+', AT = '@', POUND = '#'
 };
 
+// Print symbol options to the console
 void printSymbols() {
     cout << "Symbol for selection: " << endl;
     cout << "1:" << (char) ASTERISK
@@ -21,6 +27,7 @@ void printSymbols() {
          << endl;
 }
 
+// Get symbol value from index selected
 char getSymbolValue(int index) {
     switch (index) {
         case 1:
@@ -38,6 +45,7 @@ char getSymbolValue(int index) {
     }
 }
 
+// Testing validity of symbol selected
 int getValidSymbolIndex() {
     printSymbols();
     int indexOfSymbol;
@@ -56,6 +64,7 @@ int getValidSymbolIndex() {
     return indexOfSymbol;
 }
 
+// Receiving names and creating players
 Player createPlayer(int index) {
     cout << "Input name of the " << index << " player: " << endl;
     string playerName;
@@ -69,9 +78,11 @@ Player createPlayer(int index) {
 
 int main() {
 
+// Creating two player objects and passing their index to createPlayer function
     Player playerOne = createPlayer(1);
     Player playerTwo = createPlayer(2);
 
+// Ensuring no duplicate names are taken
     string playerName;
     while (playerTwo.getName() == playerOne.getName()) {
         cout << "Player name exists, please select another name (" << playerOne.getName() << "):" << endl;
@@ -79,6 +90,7 @@ int main() {
         playerTwo.setName(playerName);
     }
 
+// Ensuring no duplicate symbols are taken
     int indexOfSymbol;
     while (playerTwo.getSymbol() == playerOne.getSymbol()) {
         cout << "The symbol has been selected by player one (" << playerOne.getSymbol()
@@ -87,6 +99,11 @@ int main() {
         playerTwo.setSymbol(getSymbolValue(indexOfSymbol));
     }
 
+
+    playerOne.setPlayerIndex(0);
+    playerTwo.setPlayerIndex(1);
+
+    // Creating a board instance with player objects as arguments
     Board board(playerOne, playerTwo);
     board.printBoard();
 
@@ -94,8 +111,12 @@ int main() {
     board.printBoard();
 
     Dice dice;
-    cout << "dice result: " << dice.getRoll1() << ", " << dice.getRoll2() << ", " << dice.getRollsSum() << endl;
-    board.getTokensForMoving(0, dice);
+    cout << "dice result: " << dice.getRoll1() << ", " << dice.getRoll2() << endl;
+
+    board.getTokensForMoving(0, dice.getRoll1(), dice.getRoll2());
+    board.getTokensForMoving(0,  dice.getRoll2());
+
+    board.playing(0);
 
     return 0;
 }

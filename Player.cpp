@@ -2,6 +2,7 @@
 #include <map>
 
 #include "Player.h"
+#include "Board.h"
 
 using namespace std;
 
@@ -17,21 +18,34 @@ int Player::getPlayerIndex() {
     return playerIndex;
 }
 
-int Player::SelectToken(map<int, string> tokens) {
+vector<int> Player::SelectToken(set<pair<int, string>> tokens){
     printMap(tokens, TITLE_SELECT);
-    int userInput;
-    cin >> userInput;
-    return userInput;
+    int fromIndex;
+    int toIndex;
+    vector<int> moveSelection;
+
+    cout << "Please input fromIndex (space) toIndex(1 2): " << endl;
+    cout << "Enter the index of the token you wish to move";
+    cin >> fromIndex;
+    cout << "Enter the index of your target space: " << endl;
+    cin >> toIndex;
+
+    moveSelection.push_back(fromIndex);
+    moveSelection.push_back(toIndex);
+
+    return moveSelection;
+
+    // Board::moveToken(getPlayerIndex(), fromIndex, toIndex);
 }
 
-int Player::MoveToken(map<int, string> tokens) {
+int Player::MoveToken(set<pair<int, string>> tokens) {
     printMap(tokens, TITLE_MOVE);
     int userInput;
     cin >> userInput;
     return userInput;
 }
 
-void Player::printMap(map<int, string> allOptions, std::string title) {
+void Player::printMap(set<pair<int, string>> allOptions, std::string title) {
     cout << title << endl;
 
     for (auto &allOption : allOptions) {
